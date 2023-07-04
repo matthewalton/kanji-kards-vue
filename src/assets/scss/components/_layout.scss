@@ -1,0 +1,9 @@
+body {
+  div#main {
+    padding-left: $nav-width;
+
+    div#content {
+      padding: $content-padding;
+    }
+  }
+}
