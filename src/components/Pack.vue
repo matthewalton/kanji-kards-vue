@@ -1,13 +1,16 @@
 <script setup lang="ts">
-import PackDTO from "../assets/types/PackDTO";
+import PackDTO from "../types/PackDTO";
 
 defineProps({
   pack: { type: Object as () => PackDTO, required: true },
-})
+});
 </script>
 
 <template>
-  <div class="card shadow-sm border rounded-4 text-bg-tertiary h-100" role="button">
+  <div
+    class="card shadow-sm border rounded-4 text-bg-tertiary h-100"
+    role="button"
+  >
     <div class="card-body text-center">
       <div class="d-flex flex-column mb-2">
         <span class="fs-1" v-html="pack.kanji"></span>
@@ -15,7 +18,6 @@ defineProps({
       </div>
 
       <h5 class="card-title fw-bold" v-html="pack.title"></h5>
-      <p class="card-text small" v-html="pack.description"></p>
     </div>
   </div>
 </template>
