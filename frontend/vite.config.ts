@@ -5,9 +5,11 @@ import vue from "@vitejs/plugin-vue";
 export default defineConfig({
   plugins: [vue()],
   server: {
+    host: true,
+    port: 8080,
     proxy: {
       "/api": {
-        target: "http://localhost:3000", // Replace with your Express.js server's address
+        target: "http://localhost:3000",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },

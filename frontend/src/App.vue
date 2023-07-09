@@ -12,6 +12,4 @@ import Navigation from "./components/Navigation.vue";
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
