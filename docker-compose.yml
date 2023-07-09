@@ -8,6 +8,8 @@ services:
     depends_on:
       - backend
     command: npm run dev
+    volumes:
+      - ./frontend:/app
   backend:
     build:
       context: ./backend
@@ -15,6 +17,8 @@ services:
       - 3000:3000
     depends_on:
       - database
+    volumes:
+      - ./backend:/app
   database:
     image: mysql:latest
     ports:
