@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import axios from "axios";
+import Api from "@api";
 
 const message = ref<string>("");
 
-axios.get("api/").then((response) => {
+Api.get("/").then((response) => {
   message.value = response.data;
 });
 </script>

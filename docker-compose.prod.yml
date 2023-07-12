@@ -4,25 +4,30 @@ services:
     build:
       context: ./frontend
     ports:
-      - 8080:8080
+      - ${VITE_FRONTEND_PORT}:80
     depends_on:
       - backend
-    command: npm run dev
     volumes:
-      - ./frontend:/app
+      - ./backend:/app/backend
+    env_file:
+      - .env
+
   backend:
     build:
       context: ./backend
     ports:
-      - 3000:3000
+      - ${VITE_BACKEND_PORT}:3000
     depends_on:
       - database
     volumes:
-      - ./backend:/app
+      - ./backend:/app/backend
+    env_file:
+      - .env
+
   database:
     image: mysql:latest
     ports:
-      - 3306:3306
+      - ${MYSQL_PORT}:3306
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
