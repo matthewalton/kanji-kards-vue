@@ -22,7 +22,7 @@
         ></router-link>
       </li>
       <li class="nav-item">
-        <router-link to="/packs" class="nav-link"
+        <router-link to="/cards" class="nav-link"
           ><i class="bi bi-box-fill fs-2"></i
         ></router-link>
       </li>

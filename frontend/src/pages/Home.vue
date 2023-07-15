@@ -1,13 +1,4 @@
-<script setup lang="ts">
-import { ref } from "vue";
-import Api from "@api";
-
-const message = ref<string>("");
-
-Api.get("/").then((response) => {
-  message.value = response.data;
-});
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="mb-4">
@@ -19,7 +10,6 @@ Api.get("/").then((response) => {
   </div>
 
   <h1>Welcome again!</h1>
-  <h2>{{ message }}</h2>
 </template>
 
 <style scoped></style>

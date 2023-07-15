@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import Home from "../components/Home.vue";
-import MyPacks from "../components/MyPacks.vue";
+import Home from "../pages/Home.vue";
+import MyKanjiCards from "../pages/MyKanjiCards.vue";
 
 const routes = [
   { path: "/", component: Home },
-  { path: "/packs", component: MyPacks },
+  { path: "/cards", component: MyKanjiCards },
 ];
 
 const router = createRouter({
