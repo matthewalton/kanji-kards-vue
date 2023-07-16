@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useThemeStore } from "../../stores/theme.store";
+
+const themeStore = useThemeStore();
+</script>
 
 <template>
   <div class="position-fixed top-0 start-0 z-1">
@@ -8,7 +12,7 @@
       <li class="nav-item">
         <router-link to="/" class="navbar-brand brand">
           <img
-            src="../../assets/img/kanji-cards-website-favicon-light.png"
+            :src="`/images/kanji-cards-favicon-${themeStore.getOppositeTheme}.webp`"
             class="logo"
             alt="Kanji Cards Logo"
             width="64"
@@ -24,6 +28,11 @@
       <li class="nav-item">
         <router-link to="/cards" class="nav-link"
           ><i class="bi bi-box-fill fs-2"></i
+        ></router-link>
+      </li>
+      <li class="nav-item">
+        <router-link to="/settings" class="nav-link"
+          ><i class="bi bi-gear-fill fs-2"></i
         ></router-link>
       </li>
     </ul>
