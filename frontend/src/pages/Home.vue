@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useActionMenuStore } from "../stores/action-menu.store";
+
+const actionMenuStore = useActionMenuStore();
+actionMenuStore.activeMenuId = "home";
+</script>
 
 <template>
   <div class="mb-4">
@@ -9,7 +14,7 @@
     />
   </div>
 
-  <h1>Welcome again!</h1>
+  <h1>Welcome!</h1>
 </template>
 
 <style scoped></style>

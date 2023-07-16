@@ -1,21 +1,32 @@
 <script setup lang="ts">
-defineProps({
-  cardId: {
-    type: Number,
-    required: true,
-  },
-});
+import { useCardsStore } from "../stores/cards.store";
+
+const cardsStore = useCardsStore();
+const card = cardsStore.activeCard;
 </script>
 
 <template>
-  <div class="card shadow-sm border rounded-4 text-bg-tertiary h-100">
-    <div class="card-body text-center">
+  <div
+    v-if="card"
+    class="card shadow-sm border rounded-4 text-bg-tertiary w-100"
+  >
+    <div class="card-body text-center position-relative">
       <div class="d-flex flex-column mb-2">
-        <span class="fs-1"></span>
-        <span class="small"></span>
+        <span class="fs-1" v-html="card.kanji"></span>
+        <span class="small" v-html="`${card.kun_readings}`"></span>
       </div>
 
-      <h5 class="card-title fw-bold"></h5>
+      <h5 class="card-title fw-bold" v-html="card.name"></h5>
+
+      <div class="position-absolute top-0 end-0" style="padding: inherit">
+        <button
+          type="button"
+          class="btn btn-danger p-2 py-1"
+          @click="cardsStore.resetCard()"
+        >
+          <i class="bi bi-x fs-4"></i>
+        </button>
+      </div>
     </div>
   </div>
 </template>

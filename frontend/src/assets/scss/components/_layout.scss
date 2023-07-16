@@ -5,5 +5,10 @@ body {
     div#content {
       padding: $content-padding;
     }
+
+    div#action-menu {
+      top: $content-padding;
+      padding: $action-menu-padding;
+    }
   }
 }

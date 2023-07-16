@@ -8,7 +8,7 @@
       <li class="nav-item">
         <router-link to="/" class="navbar-brand brand">
           <img
-            src="../assets/img/kanji-cards-website-favicon-light.png"
+            src="../../assets/img/kanji-cards-website-favicon-light.png"
             class="logo"
             alt="Kanji Cards Logo"
             width="64"

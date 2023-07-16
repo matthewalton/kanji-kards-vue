@@ -11,6 +11,7 @@ defineProps({
 
 <template>
   <div
+    role="button"
     class="card shadow-sm border rounded-4 text-bg-tertiary h-100 text-nowrap"
   >
     <div class="card-body text-center">
