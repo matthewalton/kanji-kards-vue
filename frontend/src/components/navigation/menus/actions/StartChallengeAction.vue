@@ -6,7 +6,9 @@
       Ready for the challenge?
 
       <div class="d-grid mt-4">
-        <button type="button" class="btn btn-secondary">Start Challenge</button>
+        <router-link to="/challenge" class="btn btn-secondary"
+          >Start Challenge</router-link
+        >
       </div>
     </div>
   </div>

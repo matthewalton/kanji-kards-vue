@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useCardsStore } from "../stores/cards.store";
+import { useCardsStore } from "../../stores/cards.store";
 
 const cardsStore = useCardsStore();
 const card = cardsStore.activeCard;
