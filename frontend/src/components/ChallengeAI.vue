@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { sendMessage } from "../assets/js/chatService";
+import LoadingAlert from "./LoadingAlert.vue";
 
 const userMessage = ref<string>("");
 const errorMessage = ref<string>("");
@@ -66,6 +67,8 @@ function search() {
       <div v-if="errorMessage" class="text-danger">
         {{ errorMessage }}
       </div>
+
+      <LoadingAlert v-if="loading" />
     </div>
   </div>
 </template>
