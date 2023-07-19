@@ -23,27 +23,27 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="d-flex gap-3 flex-column">
+  <div class="flex gap-3 flex-col">
     <router-link to="/cards"
-      ><i class="bi bi-backspace-fill fs-2"></i
+      ><i class="fas fa-backward-step text-3xl"></i
     ></router-link>
 
     <ChallengeAI />
 
-    <div class="card rounded bg-body-tertiary w-100">
-      <div class="card-body d-flex justify-content-center">
-        <div v-for="card in cardsStore.deck" :key="card.id" class="kanji-card">
-          <KanjiCard :card="card" />
-        </div>
+    <div
+      class="card border-4 flex justify-center bg-zinc-50 dark:bg-gray-600 dark:border-gray-500"
+    >
+      <div v-for="card in cardsStore.deck" :key="card.id" class="kanji-card">
+        <KanjiCard :card="card" :animate="true" />
       </div>
     </div>
 
-    <div class="d-flex justify-content-center">
+    <div class="flex justify-center">
       <button
-        class="btn btn-secondary btn-lg"
+        class="bg-green-600 hover:bg-green-700 transition ease-in-out text-gray-100 px-4 py-1 rounded-full"
         @click="cardsStore.setRandomDeck(5)"
       >
-        <i class="bi bi-shuffle"></i>
+        <i class="fas fa-shuffle text-3xl"></i>
       </button>
     </div>
   </div>

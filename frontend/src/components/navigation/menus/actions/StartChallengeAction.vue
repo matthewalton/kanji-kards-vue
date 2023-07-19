@@ -1,15 +1,17 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="card shadow-sm border rounded-4 bg-primary text-dark text-center">
-    <div class="card-body">
-      Ready for the challenge?
+  <div
+    class="card shadow-sm border-4 rounded-4 dark:border-gray-600 bg-zinc-50 dark:bg-gray-800"
+  >
+    Ready for the challenge?
 
-      <div class="d-grid mt-4">
-        <router-link to="/challenge" class="btn btn-secondary"
-          >Start Challenge</router-link
-        >
-      </div>
+    <div class="mt-5">
+      <router-link
+        to="/challenge"
+        class="rounded px-4 py-2 transition ease-in-out text-gray-200 bg-green-600 hover:bg-green-700"
+        >Start Challenge</router-link
+      >
     </div>
   </div>
 </template>

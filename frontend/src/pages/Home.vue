@@ -12,12 +12,11 @@ actionMenuStore.activeMenuId = "home";
   <div class="mb-4">
     <img
       :src="`/images/kanji-cards-${themeStore.getOppositeTheme}.webp`"
-      class="logo"
       alt="Kanji Cards Logo"
     />
   </div>
 
-  <h1>Welcome!</h1>
+  <h1 class="text-5xl">Welcome!</h1>
 </template>
 
 <style scoped></style>

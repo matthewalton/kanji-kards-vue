@@ -8,27 +8,22 @@ const card = cardsStore.activeCard;
 <template>
   <div
     v-if="card"
-    class="card shadow-sm border rounded-4 text-bg-tertiary w-100"
+    class="card border-4 transition ease-in-out shadow hover:shadow-sm border-zinc-200 dark:border-gray-700 bg-zinc-50 dark:bg-gray-800 text-zinc-800 dark:text-gray-400 text-center"
   >
-    <div class="card-body text-center position-relative">
-      <div class="d-flex flex-column mb-2">
-        <span class="fs-1" v-html="card.kanji"></span>
-        <span class="small" v-html="`${card.kun_readings}`"></span>
-      </div>
-
-      <h5 class="card-title fw-bold" v-html="card.name"></h5>
-
-      <div class="position-absolute top-0 end-0" style="padding: inherit">
-        <button
-          type="button"
-          class="btn btn-danger p-2 py-1"
-          @click="cardsStore.resetCard()"
-        >
-          <i class="bi bi-x fs-4"></i>
-        </button>
-      </div>
+    <div class="flex flex-col gap-3 mb-2">
+      <span class="text-5xl" v-html="card.kanji"></span>
+      <span class="text-lg" v-html="`${card.kun_readings}`"></span>
     </div>
+
+    <h5 class="font-medium text-4xl" v-html="card.name"></h5>
   </div>
+
+  <button
+    class="rounded px-4 py-2 transition ease-in-out bg-red-600 hover:bg-red-700 text-gray-200 mt-5"
+    @click="cardsStore.resetCard()"
+  >
+    <i class="fas fa-chevron-left"></i> Back
+  </button>
 </template>
 
 <style scoped>

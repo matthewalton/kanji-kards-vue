@@ -8,15 +8,20 @@ const menuStore = useActionMenuStore();
 <template>
   <NavigationMenu />
 
-  <div id="main" class="h-100 min-vh-100 bg-body-tertiary">
-    <div id="content" class="row g-0">
-      <section class="col-md-8 flex-fill">
+  <div
+    class="h-full min-h-screen pl-24 bg-zinc-100 dark:bg-gray-900 text-zinc-800 dark:text-gray-200"
+  >
+    <div class="grid grid-cols-3 gap-4 p-8">
+      <section
+        :class="{
+          'col-span-2': menuStore.activeMenuId,
+          'col-span-3': !menuStore.activeMenuId,
+        }"
+      >
         <router-view></router-view>
       </section>
 
-      <div v-if="menuStore.activeMenuId" class="col-md-4">
-        <ActionMenu />
-      </div>
+      <ActionMenu v-if="menuStore.activeMenuId" />
     </div>
   </div>
 </template>

@@ -21,7 +21,11 @@ export const useThemeStore = defineStore("theme", {
   },
   actions: {
     setTheme(): void {
-      document.documentElement.setAttribute("data-bs-theme", this.getTheme);
+      if (this.getTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
     },
     toggleTheme(): void {
       this.theme = this.getTheme === "dark" ? "light" : "dark";

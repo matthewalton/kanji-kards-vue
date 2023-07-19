@@ -6,16 +6,10 @@ const menuStore = useActionMenuStore();
 </script>
 
 <template>
-  <div id="action-menu" class="position-sticky">
-    <div class="d-flex flex-column gap-3">
+  <div class="sticky self-start top-8">
+    <div class="flex flex-col gap-3 text-center font-medium">
       <HomeMenu v-if="menuStore.activeMenuId === 'home'" />
       <MyKanjiCardsMenu v-if="menuStore.activeMenuId === 'myKanjiCards'" />
     </div>
   </div>
 </template>
-
-<style scoped>
-div#action-menu {
-  align-self: flex-start;
-}
-</style>

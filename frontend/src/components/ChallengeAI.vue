@@ -41,35 +41,34 @@ function search() {
 </script>
 
 <template>
-  <div id="ai-card" class="card rounded bg-body-tertiary w-100">
-    <div
-      class="card-body d-flex gap-2 align-items-center justify-content-center flex-column"
-    >
-      <div class="chat-history">
-        <div v-for="message in messages" :key="message.id">
-          <div v-if="message.sender === 'user'" class="user-message">
-            {{ message.content }}
-          </div>
-          <div v-else class="bot-message">
-            {{ message.content }}
-          </div>
+  <div
+    id="ai-card"
+    class="card border-4 flex gap-2 items-center justify-center flex-col bg-zinc-50 dark:bg-gray-950 dark:border-gray-500"
+  >
+    <div class="chat-history">
+      <div v-for="message in messages" :key="message.id">
+        <div v-if="message.sender === 'user'" class="user-message">
+          {{ message.content }}
+        </div>
+        <div v-else class="bot-message">
+          {{ message.content }}
         </div>
       </div>
-
-      <div class="input-area">
-        <input
-          v-model.trim="userMessage"
-          @keydown.enter="search"
-          placeholder="Type a message..."
-        />
-      </div>
-
-      <div v-if="errorMessage" class="text-danger">
-        {{ errorMessage }}
-      </div>
-
-      <LoadingAlert v-if="loading" />
     </div>
+
+    <div class="dark:text-gray-900">
+      <input
+        v-model.trim="userMessage"
+        @keydown.enter="search"
+        placeholder="Type a message..."
+      />
+    </div>
+
+    <div v-if="errorMessage" class="text-red-600">
+      {{ errorMessage }}
+    </div>
+
+    <LoadingAlert v-if="loading" />
   </div>
 </template>
 

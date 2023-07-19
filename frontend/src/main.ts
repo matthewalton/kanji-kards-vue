@@ -4,9 +4,7 @@ import router from "./router";
 import { createPinia } from "pinia";
 import piniaPluginPersistedState from "pinia-plugin-persistedstate";
 
-import "./assets/scss/styles.scss";
-import "bootstrap-icons/font/bootstrap-icons.min.css";
-import "bootstrap/dist/js/bootstrap.min.js";
+import "./assets/css/index.css";
 
 const app = createApp(App);
 const pinia = createPinia();

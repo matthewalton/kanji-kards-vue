@@ -9,12 +9,11 @@ actionMenuStore.activeMenuId = "settings";
 </script>
 
 <template>
-  <h1 class="mb-4">Settings</h1>
+  <h1 class="text-5xl mb-4">Settings</h1>
 
-  <div :key="themeStore.theme" class="form-check form-switch">
-    <label class="form-check-label">
+  <div :key="themeStore.theme">
+    <label class="dark:text-gray-200">
       <input
-        class="form-check-input"
         type="checkbox"
         role="switch"
         :checked="themeStore.getTheme === 'dark'"

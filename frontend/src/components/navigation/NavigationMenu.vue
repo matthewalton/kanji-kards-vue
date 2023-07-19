@@ -5,38 +5,41 @@ const themeStore = useThemeStore();
 </script>
 
 <template>
-  <div class="position-fixed top-0 start-0 z-1">
+  <div class="fixed top-0 left-0 z-1">
     <ul
-      class="nav gap-3 flex-column nav-pills text-center p-4 vh-100 border-end border-2 bg-body overflow-y-auto"
+      class="flex gap-8 flex-col items-center p-4 h-screen overflow-y-auto border-r-4 border-zinc-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900"
     >
-      <li class="nav-item">
-        <router-link to="/" class="navbar-brand brand">
+      <li>
+        <router-link to="/">
           <img
             :src="`/images/kanji-cards-favicon-${themeStore.getOppositeTheme}.webp`"
-            class="logo"
             alt="Kanji Cards Logo"
             width="64"
             height="64"
           />
         </router-link>
       </li>
-      <li class="nav-item">
-        <router-link to="/" class="nav-link"
-          ><i class="bi bi-house-fill fs-2"></i
+      <li>
+        <router-link
+          to="/"
+          class="transition ease-in-out dark:text-gray-300 dark:hover:text-white dark:active:text-white"
+          ><i class="fas fa-house text-4xl"></i
         ></router-link>
       </li>
-      <li class="nav-item">
-        <router-link to="/cards" class="nav-link"
-          ><i class="bi bi-box-fill fs-2"></i
+      <li>
+        <router-link
+          to="/cards"
+          class="transition ease-in-out dark:text-gray-300 dark:hover:text-white dark:active:text-white"
+          ><i class="fas fa-cube text-4xl"></i
         ></router-link>
       </li>
-      <li class="nav-item">
-        <router-link to="/settings" class="nav-link"
-          ><i class="bi bi-gear-fill fs-2"></i
+      <li>
+        <router-link
+          to="/settings"
+          class="transition ease-in-out dark:text-gray-300 dark:hover:text-white dark:active:text-white"
+          ><i class="fas fa-gear text-4xl"></i
         ></router-link>
       </li>
     </ul>
   </div>
 </template>
-
-<style scoped></style>

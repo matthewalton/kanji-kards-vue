@@ -21,18 +21,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <h1 class="mb-4">My Cards</h1>
+  <h1 class="text-5xl mb-5">My Cards</h1>
 
   <StudyKanjiCard v-if="cardsStore.activeCard" />
-  <div v-else>
-    <div class="row align-items-stretch">
-      <div
-        v-for="card in cardsStore.cards"
-        :key="card.id"
-        class="col-auto mb-4"
-      >
-        <KanjiCard :card="card" @click="cardsStore.activeCard = card" />
-      </div>
+  <div v-else class="flex flex-row flex-wrap gap-3">
+    <div v-for="card in cardsStore.cards" :key="card.id">
+      <KanjiCard :card="card" @click="cardsStore.activeCard = card" />
     </div>
   </div>
 </template>

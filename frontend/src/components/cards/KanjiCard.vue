@@ -6,18 +6,21 @@ defineProps({
     type: Object as () => KanjiCardDTO,
     required: true,
   },
+  animate: {
+    type: Boolean,
+    default: false,
+  },
 });
 </script>
 
 <template>
   <div
     role="button"
-    class="card shadow-sm border rounded-4 text-bg-tertiary h-100 text-nowrap"
+    class="card border-4 transition ease-in-out hover:shadow border-zinc-200 dark:border-gray-700 bg-zinc-50 dark:bg-gray-800 text-zinc-800 dark:text-gray-400"
+    :class="{ 'hover:-translate-y-1': animate }"
   >
-    <div class="card-body text-center">
-      <div class="d-flex flex-column">
-        <span class="fs-1">{{ card.kanji }}</span>
-      </div>
+    <div class="text-center text-4xl">
+      {{ card.kanji }}
     </div>
   </div>
 </template>
