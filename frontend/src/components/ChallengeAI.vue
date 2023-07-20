@@ -1,43 +1,40 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import { sendMessage } from "../assets/js/chatService";
+import { watch, ref } from "vue";
 import LoadingAlert from "./LoadingAlert.vue";
+import { useCardsStore } from "../stores/cards.store";
+import KanjiCardDTO from "../types/KanjiCardDTO";
+import Api from "@api";
 
-const userMessage = ref<string>("");
-const errorMessage = ref<string>("");
-const messages = ref<{ id: number; sender: string; content: string }[]>([]);
+const cardsStore = useCardsStore();
 
 const loading = ref<boolean>(false);
+const question = ref<string>("");
 
-function search() {
-  if (userMessage.value === "") return;
+function getRandomKanji(): KanjiCardDTO {
+  const randomIndex = Math.floor(Math.random() * cardsStore.deck.length);
+  return cardsStore.deck[randomIndex];
+}
 
+function getQuestion() {
   loading.value = true;
-  errorMessage.value = "";
 
-  // Send user message to ChatGPT
-  sendMessage(userMessage.value)
-    .then((response) => {
-      // Add user and bot messages to the conversation
-      messages.value.push({
-        id: Date.now(),
-        sender: "user",
-        content: userMessage.value,
-      });
-      messages.value.push({
-        id: Date.now() + 1,
-        sender: "bot",
-        content: response,
-      });
-    })
-    .catch((error) => {
-      errorMessage.value = error.message;
+  const kanji = getRandomKanji();
+
+  Api.get(`get-question/${kanji.id}`)
+    .then((response: { data: { question: string; answer: string } }) => {
+      question.value = response.data.question;
     })
     .finally(() => {
-      userMessage.value = "";
       loading.value = false;
     });
 }
+
+watch(
+  () => cardsStore.deck,
+  (): void => {
+    getQuestion();
+  }
+);
 </script>
 
 <template>
@@ -45,27 +42,10 @@ function search() {
     id="ai-card"
     class="card border-4 flex gap-2 items-center justify-center flex-col bg-zinc-50 dark:bg-gray-950 dark:border-gray-500"
   >
-    <div class="chat-history">
-      <div v-for="message in messages" :key="message.id">
-        <div v-if="message.sender === 'user'" class="user-message">
-          {{ message.content }}
-        </div>
-        <div v-else class="bot-message">
-          {{ message.content }}
-        </div>
-      </div>
-    </div>
-
-    <div class="dark:text-gray-900">
-      <input
-        v-model.trim="userMessage"
-        @keydown.enter="search"
-        placeholder="Type a message..."
-      />
-    </div>
-
-    <div v-if="errorMessage" class="text-red-600">
-      {{ errorMessage }}
+    <div
+      class="text-3xl font-mono dark:text-white text-black lg:px-40 text-center"
+    >
+      {{ question }}
     </div>
 
     <LoadingAlert v-if="loading" />

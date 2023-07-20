@@ -11,9 +11,10 @@ const actionMenuStore = useActionMenuStore();
 actionMenuStore.activeMenuId = "";
 
 const cardsStore = useCardsStore();
-cardsStore.setRandomDeck(5);
 
 onMounted(() => {
+  cardsStore.setRandomDeck(5);
+
   if (!cardsStore.cards.length) {
     Api.get("/cards").then((response: { data: KanjiCardDTO[] }) => {
       cardsStore.cards = response.data;
