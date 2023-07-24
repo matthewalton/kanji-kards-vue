@@ -5,7 +5,8 @@ import { useCardsStore } from "../stores/cards.store";
 import { onMounted } from "vue";
 import { useActionMenuStore } from "../stores/action-menu.store";
 import KanjiCard from "../components/cards/KanjiCard.vue";
-import ChallengeAI from "../components/ChallengeAI.vue";
+import ChallengeAI from "../components/challenge/ChallengeAI.vue";
+import ChallengeControls from "../components/challenge/ChallengeControls.vue";
 
 const actionMenuStore = useActionMenuStore();
 actionMenuStore.activeMenuId = "";
@@ -31,22 +32,34 @@ onMounted(() => {
 
     <ChallengeAI />
 
-    <div
-      class="card border-4 flex justify-center bg-zinc-50 dark:bg-gray-600 dark:border-gray-500"
-    >
-      <div v-for="card in cardsStore.deck" :key="card.id" class="kanji-card">
-        <KanjiCard :card="card" :animate="true" />
+    <div class="card border-4 bg-zinc-50 dark:bg-gray-600 dark:border-gray-500">
+      <div
+        v-if="cardsStore.isMarked"
+        class="card w-min border-4 transition ease-in-out hover:shadow text-gray-200 mx-auto"
+        :class="{
+          'border-green-900 bg-green-500': cardsStore.isCorrect,
+          'border-red-900 bg-red-500': !cardsStore.isCorrect,
+        }"
+      >
+        <div class="text-center text-4xl">
+          {{ cardsStore.isCorrect ? "Correct" : "Incorrect" }}
+        </div>
+      </div>
+      <div v-else-if="cardsStore.activeCard" class="flex justify-center">
+        <KanjiCard :card="cardsStore.activeCard" />
+      </div>
+      <div v-else class="flex justify-center">
+        <div v-for="card in cardsStore.deck" :key="card.id" class="kanji-card">
+          <KanjiCard
+            :card="card"
+            :animate="true"
+            @click="cardsStore.activeCard = card"
+          />
+        </div>
       </div>
     </div>
 
-    <div class="flex justify-center">
-      <button
-        class="bg-green-600 hover:bg-green-700 transition ease-in-out text-gray-100 px-4 py-1 rounded-full"
-        @click="cardsStore.setRandomDeck(5)"
-      >
-        <i class="fas fa-shuffle text-3xl"></i>
-      </button>
-    </div>
+    <ChallengeControls />
   </div>
 </template>
 

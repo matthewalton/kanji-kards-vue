@@ -16,7 +16,7 @@ defineProps({
 <template>
   <div
     role="button"
-    class="card border-4 transition ease-in-out hover:shadow border-zinc-200 dark:border-gray-700 bg-zinc-50 dark:bg-gray-800 text-zinc-800 dark:text-gray-400"
+    class="card w-max border-4 transition ease-in-out hover:shadow border-zinc-200 dark:border-gray-700 bg-zinc-50 dark:bg-gray-800 text-zinc-800 dark:text-gray-400"
     :class="{ 'hover:-translate-y-1': animate }"
   >
     <div class="text-center text-4xl">
