@@ -13,13 +13,16 @@ actionMenuStore.activeMenuId = "";
 
 const cardsStore = useCardsStore();
 
-onMounted(() => {
+onMounted(async () => {
   cardsStore.setRandomDeck(5);
 
   if (!cardsStore.state.cards.length) {
-    Api.get("/cards").then((response: { data: KanjiCardDTO[] }) => {
+    try {
+      const response: { data: KanjiCardDTO[] } = await Api.get("/cards");
       cardsStore.state.cards = response.data;
-    });
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+    }
   }
 });
 </script>

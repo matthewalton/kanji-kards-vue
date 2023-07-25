@@ -11,11 +11,14 @@ const cardsStore = useCardsStore();
 const actionMenuStore = useActionMenuStore();
 actionMenuStore.activeMenuId = "myKanjiCards";
 
-onMounted(() => {
+onMounted(async () => {
   if (!cardsStore.state.cards.length) {
-    Api.get("/cards").then((response: { data: KanjiCardDTO[] }) => {
+    try {
+      const response: { data: KanjiCardDTO[] } = await Api.get("/cards");
       cardsStore.state.cards = response.data;
-    });
+    } catch (error) {
+      console.error("Error fetching cards:", error);
+    }
   }
 });
 </script>

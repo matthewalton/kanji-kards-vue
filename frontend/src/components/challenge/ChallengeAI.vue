@@ -19,31 +19,35 @@ function getRandomKanji(): KanjiCardDTO {
   return cardsStore.state.deck[randomIndex];
 }
 
-function getQuestion(): void {
+async function getQuestion(): Promise<void> {
   // loading.value = true;
   errorMessage.value = "";
   // question.value = "";
 
-  const kanji = getRandomKanji();
+  try {
+    const kanji = getRandomKanji();
 
-  Api.get(`get-question/${kanji.id}`)
-    .then((response: { data: Question }) => {
-      cardsStore.state.question = response.data;
+    const response: { data: Question } = await Api.get(
+      `get-question/${kanji.id}`
+    );
+    cardsStore.state.question = response.data;
 
-      words = response.data.question.split("");
+    words = response.data.question.split("");
 
-      if (questionElem.value) {
-        questionElem.value.innerHTML = "";
-      }
+    if (questionElem.value) {
+      questionElem.value.innerHTML = "";
+    }
 
-      animate();
-    })
-    .catch((error: AxiosError) => {
+    animate();
+  } catch (error) {
+    if (error instanceof AxiosError) {
       errorMessage.value = error.message;
-    })
-    .finally(() => {
-      // loading.value = false;
-    });
+    } else {
+      errorMessage.value = "An error occurred while fetching the question.";
+    }
+  } finally {
+    // loading.value = false;
+  }
 }
 
 function animate(): void {
