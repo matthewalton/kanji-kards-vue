@@ -5,8 +5,8 @@ const cardsStore = useCardsStore();
 </script>
 
 <template>
-  <div v-if="!cardsStore.isMarked" class="flex gap-2 justify-center">
-    <template v-if="cardsStore.activeCard">
+  <div v-if="!cardsStore.state.isMarked" class="flex gap-2 justify-center">
+    <template v-if="cardsStore.state.activeCard">
       <button
         class="bg-gray-500 hover:bg-gray-600 transition ease-in-out text-gray-100 px-4 py-1 rounded"
         @click="cardsStore.resetCard()"

@@ -1,50 +1,57 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { reactive, computed } from "vue";
 import KanjiCardDTO from "../types/KanjiCardDTO";
 import Question from "../types/QuestionDTO";
 
-export const useCardsStore = defineStore("cards", {
-  state: () => ({
-    cards: ref<KanjiCardDTO[]>([]),
-    activeCard: ref<KanjiCardDTO>(),
-    deck: ref<KanjiCardDTO[]>([]),
-    question: ref<Question>(),
-    questionKey: ref<number>(0),
-    isMarked: ref<boolean>(false),
-  }),
-  getters: {
-    isCorrect(): boolean {
-      return this.activeCard?.kanji === this.question?.answer;
-    },
-  },
-  actions: {
-    resetCard(): void {
-      this.activeCard = undefined;
-    },
-    setRandomDeck(size: number): void {
-      this.resetCard();
-      let shuffled = this.cards.map((c) => Object.assign({}, c));
-      shuffled = shuffled.sort(() => 0.5 - Math.random());
-      this.deck = shuffled.slice(0, size);
-    },
-    updateQuestion(): void {
-      this.resetCard();
+export const useCardsStore = defineStore("cards", () => {
+  const state = reactive({
+    cards: [] as KanjiCardDTO[],
+    activeCard: undefined as KanjiCardDTO | undefined,
+    deck: [] as KanjiCardDTO[],
+    question: undefined as Question | undefined,
+    questionKey: 0,
+    isMarked: false,
+  });
 
-      if (this.question) {
-        this.questionKey += 1;
-      }
-    },
-    markQuestion(): void {
-      this.isMarked = true;
+  const isCorrect = computed(() => {
+    return state.activeCard?.kanji === state.question?.answer;
+  });
 
-      setTimeout(() => {
-        this.isMarked = false;
-        this.setRandomDeck(5);
-        this.updateQuestion();
-      }, 5000);
-    },
-  },
-  persist: {
-    storage: sessionStorage,
-  },
+  const resetCard = () => {
+    state.activeCard = undefined;
+  };
+
+  const setRandomDeck = (size: number) => {
+    resetCard();
+    let shuffled = state.cards.map((c) => Object.assign({}, c));
+    shuffled = shuffled.sort(() => 0.5 - Math.random());
+    state.deck = shuffled.slice(0, size);
+  };
+
+  const updateQuestion = () => {
+    resetCard();
+
+    if (state.question) {
+      state.questionKey += 1;
+    }
+  };
+
+  const markQuestion = () => {
+    state.isMarked = true;
+
+    setTimeout(() => {
+      state.isMarked = false;
+      setRandomDeck(5);
+      updateQuestion();
+    }, 5000);
+  };
+
+  return {
+    state,
+    isCorrect,
+    resetCard,
+    setRandomDeck,
+    updateQuestion,
+    markQuestion,
+  };
 });

@@ -16,9 +16,9 @@ const cardsStore = useCardsStore();
 onMounted(() => {
   cardsStore.setRandomDeck(5);
 
-  if (!cardsStore.cards.length) {
+  if (!cardsStore.state.cards.length) {
     Api.get("/cards").then((response: { data: KanjiCardDTO[] }) => {
-      cardsStore.cards = response.data;
+      cardsStore.state.cards = response.data;
     });
   }
 });
@@ -34,7 +34,7 @@ onMounted(() => {
 
     <div class="card border-4 bg-zinc-50 dark:bg-gray-600 dark:border-gray-500">
       <div
-        v-if="cardsStore.isMarked"
+        v-if="cardsStore.state.isMarked"
         class="card w-min border-4 transition ease-in-out hover:shadow text-gray-200 mx-auto"
         :class="{
           'border-green-900 bg-green-500': cardsStore.isCorrect,
@@ -45,15 +45,19 @@ onMounted(() => {
           {{ cardsStore.isCorrect ? "Correct" : "Incorrect" }}
         </div>
       </div>
-      <div v-else-if="cardsStore.activeCard" class="flex justify-center">
-        <KanjiCard :card="cardsStore.activeCard" />
+      <div v-else-if="cardsStore.state.activeCard" class="flex justify-center">
+        <KanjiCard :card="cardsStore.state.activeCard" />
       </div>
       <div v-else class="flex justify-center">
-        <div v-for="card in cardsStore.deck" :key="card.id" class="kanji-card">
+        <div
+          v-for="card in cardsStore.state.deck"
+          :key="card.id"
+          class="kanji-card"
+        >
           <KanjiCard
             :card="card"
             :animate="true"
-            @click="cardsStore.activeCard = card"
+            @click="cardsStore.state.activeCard = card"
           />
         </div>
       </div>

@@ -12,9 +12,9 @@ const actionMenuStore = useActionMenuStore();
 actionMenuStore.activeMenuId = "myKanjiCards";
 
 onMounted(() => {
-  if (!cardsStore.cards.length) {
+  if (!cardsStore.state.cards.length) {
     Api.get("/cards").then((response: { data: KanjiCardDTO[] }) => {
-      cardsStore.cards = response.data;
+      cardsStore.state.cards = response.data;
     });
   }
 });
@@ -23,10 +23,10 @@ onMounted(() => {
 <template>
   <h1 class="text-5xl mb-5">My Cards</h1>
 
-  <StudyKanjiCard v-if="cardsStore.activeCard" />
+  <StudyKanjiCard v-if="cardsStore.state.activeCard" />
   <div v-else class="flex flex-row flex-wrap gap-3">
-    <div v-for="card in cardsStore.cards" :key="card.id">
-      <KanjiCard :card="card" @click="cardsStore.activeCard = card" />
+    <div v-for="card in cardsStore.state.cards" :key="card.id">
+      <KanjiCard :card="card" @click="cardsStore.state.activeCard = card" />
     </div>
   </div>
 </template>
