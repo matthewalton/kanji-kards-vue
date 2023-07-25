@@ -1,5 +1,9 @@
 <script setup lang="ts">
+import { useChallengeStore } from "../../../stores/challenge.store";
+import ContinueChallengeAction from "./actions/ContinueChallengeAction.vue";
 import StartChallengeAction from "./actions/StartChallengeAction.vue";
+
+const challengeStore = useChallengeStore();
 </script>
 
 <template>
@@ -8,5 +12,6 @@ import StartChallengeAction from "./actions/StartChallengeAction.vue";
   >
     This is the kanji cards menu!
   </div>
+  <ContinueChallengeAction v-if="challengeStore.inProgress" />
   <StartChallengeAction />
 </template>

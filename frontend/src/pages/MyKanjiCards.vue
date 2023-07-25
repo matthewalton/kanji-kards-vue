@@ -12,10 +12,10 @@ const actionMenuStore = useActionMenuStore();
 actionMenuStore.activeMenuId = "myKanjiCards";
 
 onMounted(async () => {
-  if (!cardsStore.state.cards.length) {
+  if (!cardsStore.cards.length) {
     try {
       const response: { data: KanjiCardDTO[] } = await Api.get("/cards");
-      cardsStore.state.cards = response.data;
+      cardsStore.cards = response.data;
     } catch (error) {
       console.error("Error fetching cards:", error);
     }
@@ -26,10 +26,10 @@ onMounted(async () => {
 <template>
   <h1 class="text-5xl mb-5">My Cards</h1>
 
-  <StudyKanjiCard v-if="cardsStore.state.activeCard" />
+  <StudyKanjiCard v-if="cardsStore.activeCard" />
   <div v-else class="flex flex-row flex-wrap gap-3">
-    <div v-for="card in cardsStore.state.cards" :key="card.id">
-      <KanjiCard :card="card" @click="cardsStore.state.activeCard = card" />
+    <div v-for="card in cardsStore.cards" :key="card.id">
+      <KanjiCard :card="card" @click="cardsStore.activeCard = card" />
     </div>
   </div>
 </template>

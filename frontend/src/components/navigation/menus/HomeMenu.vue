@@ -1,4 +1,9 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useChallengeStore } from "../../../stores/challenge.store";
+import ContinueChallengeAction from "./actions/ContinueChallengeAction.vue";
+
+const challengeStore = useChallengeStore();
+</script>
 
 <template>
   <div
@@ -6,4 +11,5 @@
   >
     This is the home menu!
   </div>
+  <ContinueChallengeAction v-if="challengeStore.inProgress" />
 </template>

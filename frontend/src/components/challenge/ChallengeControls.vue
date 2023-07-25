@@ -1,40 +1,20 @@
 <script setup lang="ts">
 import { useCardsStore } from "../../stores/cards.store";
+import { useChallengeStore } from "../../stores/challenge.store";
+import ChallengeControlsActive from "./controls/ChallengeControlsActive.vue";
+import ChallengeControlsInProgress from "./controls/ChallengeControlsInProgress.vue";
+import ChallengeControlsStart from "./controls/ChallengeControlsStart.vue";
 
 const cardsStore = useCardsStore();
+const challengeStore = useChallengeStore();
 </script>
 
 <template>
-  <div v-if="!cardsStore.state.isMarked" class="flex gap-2 justify-center">
-    <template v-if="cardsStore.state.activeCard">
-      <button
-        class="bg-gray-500 hover:bg-gray-600 transition ease-in-out text-gray-100 px-4 py-1 rounded"
-        @click="cardsStore.resetCard()"
-      >
-        Cancel
-      </button>
-
-      <button
-        class="bg-green-500 hover:bg-green-600 transition ease-in-out text-gray-100 px-4 py-1 rounded"
-        @click="cardsStore.markQuestion()"
-      >
-        Confirm
-      </button>
-    </template>
-    <template v-else>
-      <button
-        class="bg-green-600 hover:bg-green-700 transition ease-in-out text-gray-100 px-4 py-1 rounded-full"
-        @click="cardsStore.setRandomDeck(5)"
-      >
-        <i class="fas fa-shuffle text-3xl"></i>
-      </button>
-
-      <button
-        class="bg-yellow-600 hover:bg-yellow-700 transition ease-in-out text-gray-100 px-4 py-1 rounded-full"
-        @click="cardsStore.updateQuestion()"
-      >
-        <i class="fas fa-arrows-rotate text-3xl"></i>
-      </button>
+  <div class="flex gap-2 justify-center">
+    <ChallengeControlsStart v-if="!challengeStore.inProgress" />
+    <template v-else-if="!challengeStore.isMarked">
+      <ChallengeControlsActive v-if="cardsStore.activeCard" />
+      <ChallengeControlsInProgress v-else />
     </template>
   </div>
 </template>

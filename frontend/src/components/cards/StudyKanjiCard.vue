@@ -2,7 +2,7 @@
 import { useCardsStore } from "../../stores/cards.store";
 
 const cardsStore = useCardsStore();
-const card = cardsStore.state.activeCard;
+const card = cardsStore.activeCard;
 </script>
 
 <template>
