@@ -14,7 +14,7 @@ const challengeStore = useChallengeStore();
       <router-link
         to="/challenge"
         class="rounded px-4 py-2 transition ease-in-out text-gray-200 bg-green-600 hover:bg-green-700"
-        @click="challengeStore.inProgress = false"
+        @click="challengeStore.resetChallenge()"
         >Start New Challenge</router-link
       >
     </div>

@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { watch, ref, onMounted } from "vue";
 import { useCardsStore } from "../../stores/cards.store";
-import KanjiCardDTO from "../../types/KanjiCardDTO";
-import Api from "@api";
-import { AxiosError } from "axios";
-import Question from "../../types/QuestionDTO";
 import { useChallengeStore } from "../../stores/challenge.store";
 
 const cardsStore = useCardsStore();
@@ -12,38 +8,22 @@ const challengeStore = useChallengeStore();
 
 const questionElem = ref<HTMLElement>();
 let words: string[] = [];
-const errorMessage = ref<string>("");
 
-function getRandomKanji(): KanjiCardDTO {
-  const randomIndex = Math.floor(Math.random() * challengeStore.deck.length);
-  return challengeStore.deck[randomIndex];
-}
+function showQuestion(animateText = true): void {
+  if (!challengeStore.question) return;
 
-async function getQuestion(): Promise<void> {
-  errorMessage.value = "";
-
-  try {
-    const kanji = getRandomKanji();
-
-    const response: { data: Question } = await Api.get(
-      `get-question/${kanji.id}`
-    );
-    challengeStore.question = response.data;
-
-    words = response.data.question.split("");
-
-    if (questionElem.value) {
-      questionElem.value.innerHTML = "";
-    }
-
-    animate();
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      errorMessage.value = error.message;
-    } else {
-      errorMessage.value = "An error occurred while fetching the question.";
-    }
+  if (!animateText && questionElem.value) {
+    questionElem.value.innerHTML = challengeStore.question.question;
+    return;
   }
+
+  words = challengeStore.question.question.split("");
+
+  if (questionElem.value) {
+    questionElem.value.innerHTML = "";
+  }
+
+  animate();
 }
 
 function animate(): void {
@@ -54,16 +34,14 @@ function animate(): void {
 }
 
 watch(
-  () => [challengeStore.deck, challengeStore.questionKey],
-  (): void => {
-    getQuestion();
+  () => challengeStore.question,
+  () => {
+    showQuestion();
   }
 );
 
 onMounted(() => {
-  if (!challengeStore.question) {
-    getQuestion();
-  }
+  showQuestion(false);
 });
 </script>
 
@@ -104,9 +82,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-  </div>
-  <div v-else-if="errorMessage" class="text-red-500">
-    {{ errorMessage }}
   </div>
   <div
     v-else
